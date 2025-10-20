@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head>
+         <meta charset="UTF-8">
+          <title>Hospitals</title> 
+          <script src="https://cdn.tailwindcss.com"></script>
+         </head> 
+         <body class="bg-gray-100 min-h-screen flex flex-col items-center py-10"> 
+            <h1 class="text-6xl italic text-red-900 font-bold font-serif text-center mb-6"> Hospitals </h1>
+             <a href="/dashboard" class="mb-8 px-6 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition transform hover:-translate-y-1"> ← Back to Dashboard </a> 
+             <div class="w-full max-w-lg bg-white p-6 rounded-lg shadow-md mb-10"> 
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Add Hospital</h2> 
+                <form action="/hospitals/add" method="POST" class="flex flex-col space-y-4"> 
+                    <input type="text" name="hospital_name" placeholder="Hospital Name" required class="p-2 border rounded">
+                     <input type="text" name="hospital_address" placeholder="Hospital Address" required class="p-2 border rounded">
+                      <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"> Add Hospital </button> 
+                    </form>
+                 </div> 
+                 <div class="w-full max-w-4xl overflow-x-auto">
+                     <h2 class="text-2xl font-semibold text-gray-800 mb-4">All Hospitals</h2>
+                      <table class="min-w-full bg-white rounded-lg shadow-md">
+                         <thead class="bg-red-700 text-white">
+                             <tr>
+                             <th class="px-4 py-2">ID</th> 
+                             <th class="px-4 py-2">Name</th> 
+                             <th class="px-4 py-2">Address</th>
+                              <th class="px-4 py-2">Action</th> 
+                            </tr>
+                         </thead>
+                          <tbody class="text-gray-700"> <% hospitals.forEach(hospital => { %>
+                             <tr class="border-b hover:bg-gray-100">
+                                 <td class="px-4 py-2 text-center"><%= hospital.HOSPITAL_ID %></td>
+                                 <td class="px-4 py-2"><%= hospital.HOSPITAL_NAME %></td> 
+                                 <td class="px-4 py-2"><%= hospital.HOSPITAL_ADDRESS %></td>
+                                  <td class="px-4 py-2 text-center"> 
+                                    <form action="/hospitals/delete/<%= hospital.HOSPITAL_ID %>" method="POST"> 
+                                        <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition"> Delete </button> 
+                                    </form>
+                                 </td>
+                                 </tr> <% }) %> 
+                                </tbody>
+                             </table> 
+                            </div> 
+                        </body>
+                        </html>

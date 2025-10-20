@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head>
+         <meta charset="UTF-8">
+          <title>Blood Records</title> 
+          <script src="https://cdn.tailwindcss.com"></script> 
+        </head> 
+        <body class="bg-gray-100 min-h-screen flex flex-col items-center py-10">
+             <h1 class="text-6xl italic text-red-900 font-bold font-serif text-center mb-6"> Blood Records </h1> 
+             <a href="/dashboard" class="mb-8 px-6 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition transform hover:-translate-y-1"> ← Back to Dashboard </a> 
+             <div class="w-full max-w-lg bg-white p-6 rounded-lg shadow-md mb-10">
+                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">Add Blood Record</h2> 
+                 <form action="/blood/add" method="POST" class="flex flex-col space-y-4">
+                     <input type="text" name="blood_id" placeholder="Blood ID (e.g., B001)" required class="p-2 border rounded">
+                      <input type="text" name="blood_group" placeholder="Blood Group (e.g., A+, O-, AB+)" required class="p-2 border rounded"> 
+                      <input type="date" name="donation_date" required class="p-2 border rounded"> 
+                      <input type="number" step="0.01" name="quantity_of_blood" placeholder="Quantity (ml)" required class="p-2 border rounded">
+                       <select name="donor_id" required class="p-2 border rounded">
+                         <option value="" disabled selected>Select Donor</option>
+                          <% donors.forEach(d => { %> 
+                            <option value="<%= d.DONOR_ID %>"><%= d.DONOR_ID %> - <%= d.DONOR_NAME %></option>
+                             <% }) %>
+                             </select>
+                              <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"> Add Record </button>
+                             </form>
+                             </div> 
+                             <div class="w-full max-w-6xl overflow-x-auto"> 
+                                <h2 class="text-2xl font-semibold text-gray-800 mb-4">All Blood Records</h2> 
+                                <table class="min-w-full bg-white rounded-lg shadow-md"> 
+                                    <thead class="bg-red-700 text-white">
+                                         <tr> 
+                                            <th class="px-4 py-2">Blood ID</th> 
+                                            <th class="px-4 py-2">Blood Group</th> 
+                                            <th class="px-4 py-2">Donation Date</th>
+                                             <th class="px-4 py-2">Quantity (ml)</th> 
+                                             <th class="px-4 py-2">Donor ID</th> 
+                                             <th class="px-4 py-2">Donor Name</th> 
+                                             <th class="px-4 py-2">Action</th>
+                                             </tr>
+                                             </thead>
+                                              <tbody class="text-gray-700"> <% blood.forEach(item => { %> 
+                                                <tr class="border-b hover:bg-gray-100"> 
+                                                    <td class="px-4 py-2 text-center"><%= item.BLOOD_ID %></td> 
+                                                    <td class="px-4 py-2 text-center"><%= item.BLOOD_GROUP %></td>
+                                                     <td class="px-4 py-2 text-center"><%= item.DONATION_DATE.toISOString().split('T')[0] %></td> 
+                                                     <td class="px-4 py-2 text-center"><%= item.QUANTITY_OF_BLOOD %></td> 
+                                                     <td class="px-4 py-2 text-center"><%= item.DONOR_ID %></td> 
+                                                     <td class="px-4 py-2"><%= item.DONOR_NAME %></td>
+                                                      <td class="px-4 py-2 text-center">
+                                                         <form action="/blood/delete/<%= item.BLOOD_ID %>" method="POST">
+                                                             <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition"> Delete </button> 
+                                                            </form>
+                                                         </td> 
+                                                        </tr> <% }) %>
+                                                     </tbody> 
+                                                    </table> 
+                                                </div> 
+                                            </body>
+                                             </html>

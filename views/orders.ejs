@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+ <html lang="en">
+     <head>
+         <meta charset="UTF-8"> 
+         <title>Orders</title>
+          <script src="https://cdn.tailwindcss.com"></script> 
+        </head> 
+        <body class="bg-gray-100 min-h-screen flex flex-col items-center py-10"> 
+            <h1 class="text-6xl italic text-red-900 font-bold font-serif text-center mb-6"> Orders </h1> 
+            <a href="/dashboard" class="mb-8 px-6 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition transform hover:-translate-y-1"> ← Back to Dashboard </a> 
+            <div class="w-full max-w-lg bg-white p-6 rounded-lg shadow-md mb-10"> 
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Place New Order</h2> 
+                <form action="/orders/add" method="POST" class="flex flex-col space-y-4">
+                     <select name="blood_stock_id" required class="p-2 border rounded">
+                         <option value="" disabled selected>Select Blood Stock</option> 
+                           <% bloodbank.forEach(stock => { %>
+                             <option value="<%= stock.BLOOD_STOCK_ID %>"> 
+                                <%= stock.BLOOD_STOCK_ID %> - <%= stock.AVAILABLE_BLOOD_GROUP %> </option>
+                                 <% }) %> 
+                                </select>
+                                 <select name="hospital_id" required class="p-2 border rounded">
+                                    <option value="" disabled selected>Select Hospital</option>
+                                    <% hospitals.forEach(h => { %>
+                                         <option value="<%= h.HOSPITAL_ID %>"><%= h.HOSPITAL_ID %> - <%= h.HOSPITAL_NAME %></option>
+                                         <% }) %>
+                                         </select>
+                                          <input type="date" name="order_date" required class="p-2 border rounded">
+                                           <input type="number" step="0.01" name="order_quantity" placeholder="Order Quantity (ml)" required class="p-2 border rounded"> 
+                                           <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"> Place Order </button> 
+                                        </form>
+                                     </div>
+                                      <div class="w-full max-w-6xl overflow-x-auto">
+                                         <h2 class="text-2xl font-semibold text-gray-800 mb-4">All Orders</h2>
+                                          <table class="min-w-full bg-white rounded-lg shadow-md">
+                                             <thead class="bg-red-700 text-white">
+                                                 <tr> 
+                                                    <th class="px-4 py-2">Blood Stock ID</th> 
+                                                    <th class="px-4 py-2">Hospital</th> 
+                                                    <th class="px-4 py-2">Order Date</th> 
+                                                    <th class="px-4 py-2">Quantity (ml)</th>
+                                                     <th class="px-4 py-2">Action</th> 
+                                                    </tr> 
+                                                </thead> 
+                                                <tbody class="text-gray-700"> <% orders.forEach(order => { %>
+                                                     <tr class="border-b hover:bg-gray-100"> 
+                                                        <td class="px-4 py-2 text-center"><%= order.BLOOD_STOCK_ID %></td> 
+                                                        <td class="px-4 py-2 text-center"><%= order.HOSPITAL_NAME || order.HOSPITAL_ID %></td> 
+                                                        <td class="px-4 py-2 text-center"><%= order.ORDER_DATE.toISOString().split('T')[0] %></td> 
+                                                        <td class="px-4 py-2 text-center"><%= order.ORDER_QUANTITY %></td>
+                                                         <td class="px-4 py-2 text-center"> 
+                                                            <form action="/orders/delete/<%= order.BLOOD_STOCK_ID %>/<%= order.HOSPITAL_ID %>/<%= order.ORDER_DATE.toISOString().split('T')[0] %>" method="POST"> 
+                                                                <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition"> Delete </button> 
+                                                            </form>
+                                                         </td> 
+                                                        </tr>
+                                                         <% }) %> 
+                                                        </tbody> 
+                                                    </table> 
+                                                </div> 
+                                            </body>
+                                             </html>

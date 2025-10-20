@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+   
+    .bg-shapes::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(239, 68, 68, 0.2), transparent 70%);
+      animation: move 20s linear infinite;
+      z-index: 0;
+    }
+
+    .bg-shapes::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 70% 70%, rgba(220, 38, 38, 0.2), transparent 70%);
+      animation: move 25s linear infinite reverse;
+      z-index: 0;
+    }
+
+    @keyframes move {
+      0% { transform: translate(0,0); }
+      50% { transform: translate(20px, 30px); }
+      100% { transform: translate(0,0); }
+    }
+
+    
+    .waves {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    .wave {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 150px;
+    }
+
+    .wave1 path {
+      fill: #B91C1C;
+      animation: waveAnim 6s infinite linear;
+    }
+
+    .wave2 path {
+      fill: #F87171;
+      animation: waveAnim 8s infinite linear reverse;
+    }
+
+    .wave3 path {
+      fill: #991B1B;
+      animation: waveAnim 10s infinite linear;
+    }
+
+    @keyframes waveAnim {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body class="relative flex flex-col items-center justify-center h-screen bg-gray-100 bg-shapes overflow-hidden">
+ 
+  <h1 class="text-6xl italic text-red-900 font-bold text-center mb-8 relative z-10">
+    Dashboard
+  </h1>
+
+  
+  <nav class="flex flex-col space-y-4 text-xl relative z-10">
+    <a href="/donors" class="px-6 py-2 bg-red-700 text-white rounded hover:bg-red-800 transition">Donors</a>
+    <a href="/blood" class="px-6 py-2 bg-red-700 text-white rounded hover:bg-red-800 transition">Blood</a>
+    <a href="/hospitals" class="px-6 py-2 bg-red-700 text-white rounded hover:bg-red-800 transition">Hospitals</a>
+    <a href="/patients" class="px-6 py-2 bg-red-700 text-white rounded hover:bg-red-800 transition">Patients</a>
+    <a href="/bloodbank" class="px-6 py-2 bg-red-700 text-white rounded hover:bg-red-800 transition">Blood Bank</a>
+    <a href="/orders" class="px-6 py-2 bg-red-700 text-white rounded hover:bg-red-800 transition">Orders</a>
+  </nav>
+
+  
+  <div class="waves">
+    
+    <svg class="wave wave1" viewBox="0 0 1200 100" preserveAspectRatio="none">
+      <path d="M0,50 C300,150 900,-50 1200,50 L1200,100 L0,100 Z"></path>
+    </svg>
+    
+    <svg class="wave wave2" viewBox="0 0 1200 100" preserveAspectRatio="none">
+      <path d="M0,60 C300,0 900,120 1200,60 L1200,100 L0,100 Z"></path>
+    </svg>
+    
+    <svg class="wave wave3" viewBox="0 0 1200 100" preserveAspectRatio="none">
+      <path d="M0,40 C300,100 900,20 1200,40 L1200,100 L0,100 Z"></path>
+    </svg>
+  </div>
+
+</body>
+</html> 
+
